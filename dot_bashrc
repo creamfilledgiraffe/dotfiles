@@ -1,0 +1,33 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+for F in $(find "${HOME}/.local/bin" -name bin -type d 2> /dev/null); do
+	[ -d $F ] || continue
+	case ":$PATH:" in
+		*:"$F":*) :;; # Already in PATH
+		*)
+			PATH="${PATH:+$PATH:}$F" # Append to PATH
+	esac
+done
+unset F
+
+eval $(dircolors)
+
+alias grep='grep --color=auto'
+alias ls='ls --color=auto --group-directories-first -h'
+alias ll='ls -l'
+alias la='ls -lA'
+alias lar='ls -lAR'
+
+alias sudi='sudo -i'
+alias ssu='sudo su -l'
+
+alias ffmpeg='ffmpeg -hide_banner'
+
+# Set the primary prompt
+PS1='[\u@\h \W]\$ '
+
